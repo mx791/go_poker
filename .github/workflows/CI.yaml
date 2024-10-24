@@ -1,0 +1,25 @@
+name: Build Go app
+
+on: [push]
+
+jobs:
+  
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go 
+        uses: actions/setup-go@v4
+      - name: install linter
+        run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.61.0
+      - name: run linter
+        run: golangci-lint run
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Go 
+        uses: actions/setup-go@v4
+      - name: run tests
+        run: go test -cover -v ./...
