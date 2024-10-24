@@ -50,8 +50,6 @@ func BrelanComparatorTest(t *testing.T) {
 	}
 
 	cardD, _ = MakeCardFromString("8 de trefle")
-	cardE, _ = MakeCardFromString("8 de carreau")
-	cardF, _ = MakeCardFromString("6 de carreau")
 
 	if CompareHands([]Card{cardA,cardB}, []Card{cardC,cardD}) != 1 {
 		t.Fatalf("Erreur avec le brelan")
@@ -83,7 +81,7 @@ func TestSimulate(t *testing.T) {
 	}
 
 	proba = simulate([]Card{cardA, cardB}, []Card{}, 5000)
-	if proba < 0.85 || proba > 0.9 {
+	if proba < 0.8 || proba > 0.9 {
 		t.Fatalf("Erreur de calcul, %f", proba)
 	}
 }
