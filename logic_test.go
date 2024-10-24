@@ -40,10 +40,7 @@ func BrelanComparatorTest(t *testing.T) {
 	cardA, _ := MakeCardFromString("5 de trefle")
 	cardB, _ := MakeCardFromString("5 de carreau")
 	cardC, _ := MakeCardFromString("5 de carreau")
-
 	cardD, _ := MakeCardFromString("8 de trefle")
-	cardE, _ := MakeCardFromString("7 de carreau")
-	cardF, _ := MakeCardFromString("6 de carreau")
 
 	if CompareHands([]Card{cardA,cardB}, []Card{cardC,cardD}) != 1 {
 		t.Fatalf("Erreur avec le brelan")
@@ -56,8 +53,8 @@ func BrelanComparatorTest(t *testing.T) {
 	}
 
 	cardD, _ = MakeCardFromString("As de trefle")
-	cardE, _ = MakeCardFromString("As de carreau")
-	cardF, _ = MakeCardFromString("As de carreau")
+	cardE, _ := MakeCardFromString("As de carreau")
+	cardF, _ := MakeCardFromString("As de carreau")
 
 	if CompareHands([]Card{cardA,cardB,cardC}, []Card{cardD,cardE,cardF}) != 1 {
 		t.Fatalf("Erreur avec le brelan")
