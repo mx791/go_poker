@@ -1,16 +1,16 @@
 package main
 
 import (
-	"net/http"
 	"encoding/json"
-	"log"
 	"fmt"
+	"log"
+	"net/http"
 	"strconv"
 )
 
 type Dto struct {
 	PersonalCards []string `json:"personal_cards"`
-	CommonCards []string `json:"common_cards"`
+	CommonCards   []string `json:"common_cards"`
 }
 
 func evaluate(w http.ResponseWriter, r *http.Request) {
@@ -70,23 +70,22 @@ func evaluate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	projectId := r.URL.Query().Get("eval_count")
-	i, err := strconv.Atoi(projectId)
+	simNumberParam := r.URL.Query().Get("eval_count")
+	nb, err := strconv.Atoi(simNumberParam)
 	if err != nil {
-		i = 5000
+		nb = 5000
 	}
-	
-	value := simulate(myCards, commonCards, i)
-	log.Println("Cartes perso:", myCards, ", cartes communes: ", commonCards, ", proba: ", value)
+
+	value := simulate(myCards, commonCards, nb)
+	log.Println("Cartes perso:", myCards, ", cartes communes: ", commonCards, ", proba: ", value, "n: ", nb)
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "%f", value)
 }
 
-
 func simulate(myCards []Card, commonCards []Card, evalCount int) float64 {
 	target_count := float64(evalCount)
 	games_won := 0.0
-	for i:=0.0; i<target_count; i+=1.0 {
+	for i := 0.0; i < target_count; i += 1.0 {
 		gen := MakeCardGeneratorNonEmpty(append(myCards, commonCards...))
 		opponentGame := []Card{gen.Next(), gen.Next()}
 		completeCommon := make([]Card, 5-len(commonCards))
@@ -102,7 +101,6 @@ func simulate(myCards []Card, commonCards []Card, evalCount int) float64 {
 	}
 	return games_won / target_count
 }
-
 
 func main() {
 	log.Println("Server starting")

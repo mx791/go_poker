@@ -26,4 +26,4 @@ L'API utilise des simulations de Monte-Carlo pour simuler un grand nombre de par
 Par défaut le programme utilise 5 000 simulations pour calculer la probabilité de victoire; cependant le nombre de tirages à une influence significative sur la stabilité des probabilités calculées.
 Cette influence a été quantifiée en mesurant la variance des résultats en fonction du nombre de tirages réalisés.
 
-![alt text](./images/var_vs_epochs.png)
+![alt text](./images/benchmark.png)
