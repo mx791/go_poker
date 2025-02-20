@@ -1,5 +1,9 @@
 package main
 
+import (
+	"sort"
+)
+
 func colorMap(hand []Card) map[int]int {
 	returnMap := make(map[int]int)
 	for _, card := range hand {
@@ -34,8 +38,45 @@ func CompareHands(handA []Card, handB []Card) int {
 	aColor := colorMap(handA)
 	bColor := colorMap(handB)
 
+	sort.Slice(handA, func(i, j int) bool {
+		return handA[i].valeur < handA[j].valeur
+	})
+	sort.Slice(handB, func(i, j int) bool {
+		return handB[i].valeur < handB[j].valeur
+	})
 	// suite couleur
-	// TODO
+	lastCard := handA[0]
+	count, maxValueA := 1, 0
+	for _, card := range handA[1:] {
+
+		if card.valeur == lastCard.valeur+1 && lastCard.couleur == card.couleur {
+			count += 1
+		} else {
+			count = 0
+		}
+		lastCard = card
+		if count == 5 {
+			maxValueA = lastCard.valeur
+		}
+	}
+	lastCard = handB[0]
+	count, maxValueB := 0, 0
+	for _, card := range handB[1:] {
+		if card.valeur == lastCard.valeur+1 && lastCard.couleur == card.couleur {
+			count += 1
+		} else {
+			count = 0
+		}
+		lastCard = card
+		if count == 5 {
+			maxValueB = lastCard.valeur
+		}
+	}
+	if maxValueA > maxValueB {
+		return 1
+	} else if maxValueB > maxValueA {
+		return -1
+	}
 
 	// carré
 	for val := 12; val >= 0; val-- {
